@@ -1,59 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
-{% block extra_style %}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-
-<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
-
-{% endblock extra_style %}
-
-{% block scripts %}
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript">
-	$(document).ready( function () {
-    $('.love').DataTable();
-} );
-</script>
-
-{% endblock scripts %}
-
 
 {% block content %}
-<div class="container mt-5 mb-3">
-	<table class="table table-hover love ">
-		<thead>
-			<tr class="bg-info">
-				<th scope="col">#</th>
-				<th scope="col">Name</th>
-				<th scope="col">Price</th>
-				<th scope="col">Quantity</th>
-				<th scope="col">Add</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for product in products  %}
-				<tr>
-				<th scope="row">{{product.id}}</th>
-				<td>{{product.name}}</td>
-				<td>{{product.price}}</td>
-				<td>{{product.quantity}}</td>
-				<td>
-					<form>
-						<input type="number" min="1" max="50" name="">
-						<button type="submit" class="btn btn-sm btn-primary">Add</button>
-					</form>
-				</td>
-				<td>
-					<form>
-						<input type="number" min="1" max="50" name="">
-						<button type="submit" class="btn btn-sm btn-primary">Delete</button>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</div>
+<div class="container fil">
+<form class="form-signin" method="POST" action="{% url 'warehouse:login' %}">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="username" class="sr-only">Username:</label>
+      <input type="text" id="username" class="form-control" placeholder="Enter Your Username" name="username" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Enter Your Password" required>
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+     
+    </form>
+
+ </div>
+	
 {% endblock content %}

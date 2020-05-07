@@ -1,0 +1,76 @@
+	{% extends "base.html" %}
+	{% load static %}
+
+	{% block extra_style %}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
+	{% endblock extra_style %}
+
+	{% block scripts %}
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready( function () {
+		$('.love').DataTable();
+	} );
+	</script>
+
+	{% endblock scripts %}
+
+
+	{% block content %}
+	<div class="container mt-5 mb-3">
+		<table class="table table-hover love ">
+			<thead>
+				<tr class="bg-info">
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Price</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Add Stock</th>
+					<th scope="col">Delete Stock</th>
+					<th scope="col">Edit Product</th>
+					<th scope="col">Delete Product</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products  %}
+				<tr>
+					<th scope="row">{{product.id}}</th>
+					<td>{{product.name}}</td>
+					<td>Rs.{{product.price}}</td>
+					<td> {% if product.quantity == None %}
+						No Stock
+						{% else%}
+						{{product.quantity}} CS
+						{%endif%}
+					</td>
+					<td>
+						<form method="POST" action="{% url 'warehouse:add_quantity' product.id %}">
+							{% csrf_token %}
+							<input type="number" min="1" max="50" name="quantity">
+							<button class="btn btn-sm btn-primary">Add</button>
+						</form>
+					</td>
+					<td>
+						<form method="POST" action="{% url 'warehouse:delete_quantity' product.id %}">
+							{% csrf_token %}
+							<input type="number" min="1" max="50" name="quantity">
+							<button type="submit" class="btn btn-sm btn-primary">Delete</button>
+						</form>
+					</td>
+
+					<td><a href="{% url 'warehouse:update_product' product.id %}"><button class="btn btn-sm btn-success">Edit Product</button></a>
+					</td>
+					<td>
+						<a href="{% url 'warehouse:delete_product' product.id %}"><button class="btn btn-sm btn-danger">Remove</button></a>
+					</td>
+
+
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

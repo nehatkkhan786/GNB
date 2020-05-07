@@ -6,9 +6,15 @@ class AddProductForm(forms.ModelForm):
 		model= Product
 		fields = ['company', 'name', 'price']
 
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['company'].queryset = Company.objects.filter(user=user)
+
 class AddCompanyForm(forms.ModelForm):
 	class Meta:
 		model = Company
 		fields = ['name']
+
+
 
 		

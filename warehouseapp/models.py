@@ -18,10 +18,16 @@ class Product(models.Model):
 	company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
 	name = models.CharField(max_length=250)
 	price = models.IntegerField()
-	quantity = models.IntegerField(blank=True, null=True)
+	quantity = models.IntegerField(blank=True, null=True, default=0)
 
 	def __str__(self):
 		return self.name
+
+	def decrement_quantity(self, count):
+		self.quantity = self.quantity - count
+
+	def increment_quantity(self, count):
+		self.quantity = self.quantity + count
 
 class Transaction(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -32,6 +38,7 @@ class Transaction(models.Model):
 	]
 	operation = models.IntegerField(choices=operation_choice)
 	product = models.ForeignKey(Product, on_delete = models.CASCADE)
+	in_stock = models.IntegerField(blank=True, null=True, default=0)
 	remarks = models.CharField(max_length=1000, blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now=True)
 

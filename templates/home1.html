@@ -78,7 +78,8 @@
                 <td id="product_quantity{{product.id}}">{{product.quantity}}cs</td>
                 <td>
                   
-            <form action="{% url 'warehouse:add_quantity' product.id %}" method="POST" id="form_add{{product.id}}">
+            <form action="{% url 'warehouse:add_quantity' product.id
+             product.id %}" method="POST" id="form_add{{product.id}}">
             {% csrf_token %}
             <input type="number" name="quantity" id="quantity{{product.id}}" min="1" max="100">
             <input class="btn btn-success" type="submit" value="Add">

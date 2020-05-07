@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+	<form method="POST" action=".">
+		{% csrf_token %}
+		<div class="container mt-5 justify-content-center">
+			<div class="row">
+				<div class="col-md-8">
+				<p>
+					Are you sure, you want to delet this <span class="font-weight-bold" 
+					>({{object}})</span>   product?
+				</p>
+				<button type="submit" class="btn btn-danger">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock content %}

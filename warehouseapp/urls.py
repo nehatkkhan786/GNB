@@ -5,11 +5,22 @@ app_name = 'warehouse'
 
 urlpatterns = [
 
-	path('', views.Dashboard.as_view(), name = 'homepage'),
-	path('list/<int:pk>/add/', views.add_quantity, name = 'add_quantity'),
-	path('list/<int:pk>/delete/', views.delete_quantity, name = 'delete_quantity'),
+	path('', views.HomeView.as_view(), name = 'home'),
+	path('dashboard/', views.Dashboard, name = 'dashboard'),
+	path('<int:pk>/add/', views.AddQuantity, name = 'add_quantity'),
+	path('<int:pk>/delete/', views.DeleteQuantity, name = 'delete_quantity'),
+	path('edit_product/<int:pk>/', views.UpdateProductView.as_view(), name='update_product'),
+	path('delete_product/<int:pk>/', views.DeleteProductView.as_view(), name = 'delete_product'),
+
+	# path('list/<int:pk>/add/', views.add_quantity, name = 'add_quantity'),
+	# path('list/<int:pk>/delete/', views.delete_quantity, name = 'delete_quantity'),
+
+
 	path('add_product/', views.AddProduct.as_view(), name = 'add_product'),
 	path('add_company/', views.AddCompany.as_view(), name = 'add_company'),
+	path('login/', views.LoginView.as_view(), name = 'login'),
+	path('logout/', views.LogoutView.as_view(), name='logout'),
+	path('transaction/', views.TransactionView.as_view(), name='transaction'),
 	path('demo/', views.demo, name ='demo'),
 	
 

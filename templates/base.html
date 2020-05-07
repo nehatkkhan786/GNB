@@ -1,33 +1,96 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-<head>
-  <title>GNB Warehouse</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <!DOCTYPE html>
+        {% load static %}
+        <html>
+        <head>
+          <title>GNB Warehouse</title>
+          <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+          {% block extra_style %}
+            
+          {% endblock extra_style %}
 
-  {% block extra_style %}
-  
-  {% endblock extra_style %}
+          <style type="text/css">
+          .bc{
 
-</head>
-<body>
-  {% include "includes/_navbar.html" %}
-
-  {% block content %}
-  
-  {% endblock content %}
+background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 
 
 
+          /*background-color: #21D4FD;
+          background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);*/
+          height: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          }
+          </style>
+          
+        </head>
+        <body>
+
+          <div class="bc">
+            
+          
+             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">GNB</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'warehouse:dashboard' %}">Dashboard</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'warehouse:add_product' %}">Add Details</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'warehouse:transaction' %}">Transaction</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'warehouse:logout' %}">Logout</a>
+                </li>
+                {% endif %}
+              </ul>
+
+            </div>
+          </nav>
+
+          <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+
+          {% block content %}
+          {% endblock content %}
+          
+</div>
+
+          
+          
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  {% block scripts %}
-    
-  {% endblock scripts %}
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+          {% block scripts %}
 
-</body>
-</html>
+          {% endblock scripts %}
+
+        </body>
+        </html>
