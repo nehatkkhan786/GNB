@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4">
+	
+	<a href="{% url 'warehouse:add_damage_product' %}"><button class="btn btn-warning float-right">Add Damage Product</button></a>
+	<div class="container justify-content-center">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 align="center">Add a Customer</h2>
+
+				<form method="POST" action=".">
+					{% csrf_token %}
+					{{form1|crispy}}
+					<button type="submit" class="btn btn-success btn-block">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

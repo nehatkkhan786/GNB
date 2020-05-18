@@ -42,4 +42,102 @@ class Transaction(models.Model):
 	remarks = models.CharField(max_length=1000, blank=True, null=True)
 	timestamp = models.DateTimeField(auto_now=True)
 
+
+class Customer(models.Model):
+	name = models.CharField(max_length=255)
+	firm_name = models.CharField(max_length=255, blank=True, null=True)
+	phone = models.CharField(max_length=255, blank=True, null=True)
+	email = models.EmailField(blank=True, null=True)
+	address = models.CharField(max_length=500, null=True, blank=True)
+	created = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.name
+
+class Damage_Product(models.Model):
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+	product = models.CharField(max_length=255)
+	price = models.IntegerField(default=0)
+	quantity = models.IntegerField(default=0)
+	mfg = models.DateField()
+	exp = models.DateField(blank=True, null=True)
+	remarks = models.CharField(max_length=500)
+	
+
+	def __str__(self):
+		return self.customer.name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
