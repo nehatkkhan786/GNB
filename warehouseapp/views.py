@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 
-from .forms import AddProductForm, AddCompanyForm, AddCustomerForm, AddDamageForm
+from .forms import AddProductForm, AddCompanyForm, AddCustomerForm
 from django.contrib import messages
 from gnb.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
@@ -151,19 +151,39 @@ class TransactionView(View):
 class DamageView(View):
 	def get(self, request, *args, **kwargs):
 		form1 = AddCustomerForm
-		form2 = AddDamageForm
-		return render(request, 'damages.html', {'form1':form1, 'form2':form2})
+		return render(request, 'damages.html', {'form1':form1})
 
 	def post(self, request, *args, **kwargs):
 		form = AddCustomerForm(request.POST)
 		if form.is_valid():
-			form.save()
-			messages.success(request,'Customer Successfully Added')
-			return redirect('warehouse:damages')
+			obj = form.save(commit=False)
+			obj.user = self.request.user
+			obj.save()
+		
+			i = 1
+			while(True):
+				name = 'product_' + str(i)
+				print('ok')
+				if name in self.request.POST:
+					product = self.request.POST.get(name)
+					price = self.request.POST.get('price_' + str(i))
+					quantity = self.request.POST.get('quantity_' + str(i))
+					mfg = self.request.POST.get('mfg_' + str(i))
+					exp = self.request.POST.get('exp_' + str(i))
+					Damage_Product.objects.create(
+						product=product,
+						price=price,
+						quantity=quantity,
+						mfg=mfg,
+						exp=exp,
+						customer=obj)
+					i = i + 1
+				else:
+					break
+			return redirect('warehouse:dashboard')
+		return render(request, 'damages.html', {'form1':form})
 
-class Add_Damage_Product(View):
-	def get(self, request, *args, **kwargs):
-		return render(request, 'add_damage_product.html')
+
 
 
 def demo(request):

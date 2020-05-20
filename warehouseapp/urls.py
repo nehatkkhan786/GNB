@@ -20,7 +20,6 @@ urlpatterns = [
 	path('logout/', views.LogoutView.as_view(), name='logout'),
 	path('transaction/', views.TransactionView.as_view(), name='transaction'),
 	path('damages/', views.DamageView.as_view(), name ='damages'),
-	path('damages/add_damage_product/', views.Add_Damage_Product.as_view(), name = 'add_damage_product'),
 	
 	
 	path('demo/', views.demo, name ='demo'),

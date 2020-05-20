@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, inlineformset_factory
-from .models import Product, Company, Customer, Damage_Product
+from .models import Product, Company, Customer
 from bootstrap_datepicker_plus import DatePickerInput
 
 
@@ -30,11 +30,6 @@ class DateInput(forms.DateInput):
 	input_type = 'date'
 
 
-class AddDamageForm(forms.ModelForm):
-	class Meta:
-		model = Damage_Product
-		fields = '__all__'
-		widgets = {'mfg':DateInput(), 'exp':DateInput()}
 
 
 

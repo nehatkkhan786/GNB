@@ -3,7 +3,6 @@
 {% block content %}
 <div class="container mt-4">
 	
-	<a href="{% url 'warehouse:add_damage_product' %}"><button class="btn btn-warning float-right">Add Damage Product</button></a>
 	<div class="container justify-content-center">
 		<div class="row">
 			<div class="col-md-12">
@@ -12,11 +11,72 @@
 				<form method="POST" action=".">
 					{% csrf_token %}
 					{{form1|crispy}}
-					<button type="submit" class="btn btn-success btn-block">Add</button>
+
+						<table class="table table-hover love ">
+							<thead>
+								<tr class="bg-info">
+									<th scope="col">#</th>
+									<th scope="col">Product</th>
+									<th scope="col">Price</th>
+									<th scope="col">Quantity</th>
+									<th scope="col">MFG</th>
+									<th scope="col">EXP</th>
+								</tr>
+							</thead>
+							<tbody  class='list-form'>
+								<tr>
+									<th scope="row">1.</th>
+									<td><input type='text' class='form-control' name='product_1'></td>
+									<td><input type='number' class='form-control' name='price_1'></td>
+									<td><input type='number' class='form-control' name='quantity_1'></td>
+									<td><input type='date' class='form-control' name='mfg_1'></td>
+									<td><input type='date' class='form-control' name='exp_1'></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class='container my-2'>
+						<button type='button' id='add' class="btn btn-primary">+</button>
+						<button type='button' id='remove' class="btn btn-danger">-</button>
+						</div>
+						
+									
+					<button type="submit" class="btn btn-success btn-block">Save</button>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var count = 2;
+		$("#remove").hide()
+        $("#add").click(function() {
+            var listForm = $(".list-form");
+            var input = $("<tr><th scope='row'>" + count + "</th>" + 
+						"<td><input type='text' class='form-control' name='product_" + count + "'></td>" + 
+						"<td><input type='number' class='form-control' name='price_" + count + "'></td>" + 
+						"<td><input type='number' class='form-control' name='quantity_" + count + "'></td>" + 
+						"<td><input type='date' class='form-control' name='mfg_" + count + "'></td>" + 
+						"<td><input type='date' class='form-control' name='exp_" + count + "'></td></tr>");
+            listForm.append(input);
+            count++;
+            
+            if(count>2){
+                $("#remove").show()
+            }
+        });
+        $("#remove").click(function() {
+            var listForm = $(".list-form");
+            listForm.children().last().remove()
+            count--;
+            if(count<=2){
+                $("#remove").hide()
+            }
+        });
+
+        
+    });
+</script>
 
 {% endblock content %}
