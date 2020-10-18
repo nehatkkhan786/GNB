@@ -100,9 +100,9 @@ def AddQuantity(request, pk):
 		product_quantity = product.quantity
 		transaction = Transaction.objects.create(
 			user=request.user,
-			operation=1,
+			operation='Added',
 			product=product,
-			remarks= quantity + ' case added from stock',
+			remarks= quantity + ' case added to stock',
 			in_stock=product_quantity
 			)
 		messages.success(request, 'Quantity Updated Successfully')
@@ -121,7 +121,7 @@ def DeleteQuantity( request, pk):
 		product_quantity = product.quantity
 		transaction = Transaction.objects.create(
 			user=request.user,
-			operation=2,
+			operation='Deleted',
 			product=product,
 			remarks= quantity + ' case removed from stock',
 			in_stock=product_quantity
