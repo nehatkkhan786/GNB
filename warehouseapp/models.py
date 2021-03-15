@@ -17,7 +17,7 @@ class Product(models.Model):
 	user = models.ForeignKey(User, on_delete= models.CASCADE)
 	company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
 	name = models.CharField(max_length=250)
-	price = models.IntegerField()
+	price = models.DecimalField(max_digits=5, decimal_places=2)
 	quantity = models.IntegerField(blank=True, null=True, default=0)
 
 	def __str__(self):
